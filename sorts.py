@@ -73,6 +73,31 @@ class MergeSort():
         self.merge_sort(nums,mid+1,right)
         
         self.merge(nums,left,mid,right)
+
+
+class HeapSort():
+    def sift_down(self,nums,n,i):
+        while True:
+            tmp = i  
+            l = 2*i+1      
+            r = 2*i+2
+            # 找i及其子节点中最大的
+            if l<n and nums[l] > nums[tmp]:
+                tmp = l
+            if r<n and nums[r] > nums[tmp]:
+                tmp = r
+            if tmp == i:
+                break
+            nums[i],nums[tmp] = nums[tmp],nums[i]
+            i = tmp
+    def heap_sort(self,nums):
+        for i in range(len(nums)//2-1,-1,-1):
+            self.sift_down(nums,len(nums),i)
+            # print(nums)
+        for i in range(len(nums)):
+            nums[0],nums[len(nums)-i-1] = nums[len(nums)-i-1], nums[0]
+            self.sift_down(nums,len(nums)-i-1,0)
+
         
         
 
@@ -109,4 +134,10 @@ def main():
     merge_obj.merge_sort(nums,0,len(nums)-1)
 
     print("-------归并排序：",nums)
+
+    nums = [7,1,5,3,2,4]
+    heap_obj = HeapSort()
+    heap_obj.heap_sort(nums)
+
+    print("-------堆排序：",nums)
 main()
